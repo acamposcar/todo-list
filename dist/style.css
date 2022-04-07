@@ -1,0 +1,236 @@
+:root{
+    --background-clr: hsl(207, 100%, 87%);
+    --primary-hue: 190;
+    --primary-sat: 90%;
+    --primary: hsl(var(--primary-hue), var(--primary-sat), 40%);
+    --primary-active: hsl(var(--primary-hue), calc(var(--primary-sat)), 50%);
+}
+
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+li{
+	list-style-type: none;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+img{
+	max-width: 100%;
+}
+ /*
+p {
+  font-size: clamp(1rem, 5vw, 1.5rem);
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw + 1rem, 3rem);
+}
+*/
+button{
+    border-radius: 1em;
+    border: none;
+	background-color: hsl(210, 86%, calc(var(--lightness-offset, 0%) + 57%));    
+	color: white;
+    padding: 0.5em 1em;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+}
+
+button:hover{
+	  --lightness-offset: 7%;
+}
+
+button:active{
+		--lightness-offset: -10%;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    min-height: 100vh;
+	border: 0px solid transparent;
+    font-family: Roboto, sans-serif;
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 7fr;
+}
+
+
+#main{
+}
+
+.container{
+    margin: 0 auto;
+    width: min(100%, 800px);
+    padding: 1em;
+    background-color: white;
+    min-height: 100vh;
+}
+
+.sidebar{
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 1fr;
+    border-right: solid thin rgb(214, 214, 214);
+    background-color: rgb(50, 52, 78);
+    color:white;
+}
+
+.sidebar .material-icons{
+    color: white; 
+}
+
+.sidebar > .logo .material-icons{
+    font-size: 3em;
+    font-weight: bold;
+    padding-top: 0.5em;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item, .projects-item{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 10px 35px;
+    
+
+}
+
+.projects-item {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+.nav-item{
+    cursor: pointer;
+}
+.nav-item.active, .nav-item.active .material-icons{
+    color:white;
+}
+
+.nav-item:hover{
+    background-color: var(--primary);
+}
+
+.nav-item:active{
+    background-color: var(--primary-active);
+}
+
+.nav-item .material-icons{
+    color:white;
+}
+.nav-item.active .material-icons{
+    color:white;
+}
+
+
+#projects-list{
+}
+
+
+
+.task{
+    display: grid;
+    align-items: center;
+    grid-template-columns: max-content minmax(100px, 1fr) 80px 40px 40px;
+    padding: 1em;
+    gap: 0.5em;
+    border-bottom: solid thin rgb(214, 214, 214);
+
+}
+
+.task.completed{
+    background-color: rgb(199, 199, 199);
+    color: grey;
+    text-decoration: line-through;
+}
+
+#add-task{
+    cursor: pointer;
+    color: grey
+}
+.delete-task{
+    color: rgb(153, 153, 153);
+    cursor: pointer;
+    font-size: 1.4em;
+    justify-self: end;
+}
+
+.delete-task:hover{
+    color: var(--primary);
+    cursor: pointer;
+}
+.due-date{
+    color: grey;
+    font-size: 0.9em;
+}
+.priority{
+    text-align: center;
+    border-radius: 10px;
+    padding: 1px;
+    color:grey;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.task:not(.completed) .priority.high{
+    border: solid thin rgb(255, 56, 56);
+    color: rgb(255, 56, 56);
+
+}
+.task:not(.completed) .priority.medium{
+    border: solid thin rgb(241, 178, 2);
+    color: rgb(241, 178, 2);
+}
+
+.task:not(.completed) .priority.low{
+    border: solid thin rgb(40, 201, 0);
+    color: rgb(40, 201, 0);
+}
+
+#add-task-icon, #add-project{
+    color: var(--primary);
+    cursor: pointer;
+}
+
+#add-task:hover #add-task-icon, #add-project:hover{
+    color: var(--primary-active);
+}
+
+#add-task-popup, #add-project-popup{
+    display: none; /* Change with JS to flex*/
+    gap: 1em;
+}
+
+
+.popup {
+    flex-direction: column;
+    place-items: center;
+    margin: 0 auto;
+    padding: 1em;
+    border-radius: 1em;
+    background: white;
+    min-width: min(400px, 90vw);
+
+
+    /* Position */
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    
+    -webkit-box-shadow: 0px 0px 0px 9999px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 0px 9999px rgba(0, 0, 0, 0.8);
+}
