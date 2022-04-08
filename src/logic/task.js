@@ -1,6 +1,6 @@
 import { isValid } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
-import { app } from './project';
+import app from './appData';
 
 class Task {
   constructor(title, description) {
@@ -36,18 +36,21 @@ class Task {
   };
 }
 
-function createNewTask(target, taskID, project) {
+function saveTask(target, taskID, project) {
   /*
-  *  Creates new task using modal form data
+  *  Creates new task or edit existing task using modal form data
+  *  If the task is being edited, taskID and project will be undefined
   */
 
   const title = target['add-task-title'].value;
   if (title === '') return false;
   let task;
   if (taskID) {
+    // Edit task
     task = app.getTaskById(taskID, project);
     task.title = title;
   } else {
+    // Create new task
     task = new Task(title);
   }
   task.description = target['add-task-description'].value;
@@ -60,4 +63,4 @@ function createNewTask(target, taskID, project) {
   return task;
 }
 
-export { Task, createNewTask };
+export { Task, saveTask };

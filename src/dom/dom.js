@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { taskModal } from './modal';
-import { app } from '../logic/project';
+import app from '../logic/appData';
 import { saveLocalStorage } from '../logic/localStorage';
 
 function appendTaskElement(task, container, project) {

@@ -1,7 +1,11 @@
 import { Task } from './task';
-import { app, Project } from './project';
+import { Project } from './project';
+import app from './appData';
 
-const projectExample = () => {
+const projectSampleData = () => {
+  /*
+  *  Create sample data
+  */
   app.addInbox();
   const work = new Project('Work');
   const personal = new Project('Personal');
@@ -52,11 +56,13 @@ const readLocalStorage = () => {
       const savedProjects = JSON.parse(localStorage.getItem('app'));
       recreateProjectsFromStorage(savedProjects);
     } catch (error) {
-    // If there is any error, start with an empty TODO
+    // If there is any error, clear all and load sample data
       app.clearAllProjects();
+      projectSampleData();
     }
   } else {
-    projectExample();
+    // Load sample data if data isn't available on local storage
+    projectSampleData();
   }
 };
 

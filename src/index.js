@@ -1,9 +1,10 @@
 /* eslint-disable max-classes-per-file */
-import { createNewTask, editTask } from './logic/task';
-import { app, createNewProject } from './logic/project';
+import { saveTask } from './logic/task';
+import { saveProject } from './logic/project';
 import { updateTaskList, updateProjectList, changeActiveProject } from './dom/dom';
 import { taskModal, projectModal } from './dom/modal';
 import { readLocalStorage, saveLocalStorage } from './logic/localStorage';
+import app from './logic/appData';
 
 readLocalStorage();
 app.addInbox();
@@ -18,9 +19,9 @@ document.querySelector('#add-task-popup').addEventListener('submit', (event) => 
   const currentProject = getCurrentProject();
   const taskID = event.target['task-id'].value;
   if (taskID) {
-    createNewTask(event.target, taskID, currentProject);
+    saveTask(event.target, taskID, currentProject);
   } else {
-    const task = createNewTask(event.target);
+    const task = saveTask(event.target);
     if (!task) return;
     currentProject.addTask(task);
   }
@@ -40,7 +41,7 @@ document.querySelector('#add-project').addEventListener('click', () => {
 
 document.querySelector('#add-project-popup').addEventListener('submit', (event) => {
   event.preventDefault();
-  const project = createNewProject(event.target);
+  const project = saveProject(event.target);
   app.addProject(project);
   saveLocalStorage();
   projectModal.clearAndHide(event.target);
