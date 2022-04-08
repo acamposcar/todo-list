@@ -26,7 +26,7 @@ const projectExample = () => {
   inbox.addTask(task);
 };
 
-const recreateProjectsFromStorage = (app, savedProjects) => {
+const recreateProjectsFromStorage = (savedProjects) => {
   /*
   *  Recreate projects and tasks stored in local storage
   */
@@ -42,7 +42,7 @@ const recreateProjectsFromStorage = (app, savedProjects) => {
   });
 };
 
-const readLocalStorage = (app) => {
+const readLocalStorage = () => {
   /*
   *  Read data stored in local storage
   */
@@ -50,7 +50,7 @@ const readLocalStorage = (app) => {
   if (localStorage.getItem('app')) {
     try {
       const savedProjects = JSON.parse(localStorage.getItem('app'));
-      recreateProjectsFromStorage(app, savedProjects);
+      recreateProjectsFromStorage(savedProjects);
     } catch (error) {
     // If there is any error, start with an empty TODO
       app.clearAllProjects();
@@ -60,7 +60,7 @@ const readLocalStorage = (app) => {
   }
 };
 
-const saveLocalStorage = (app) => {
+const saveLocalStorage = () => {
   /*
   *  Save data to local storage
   */

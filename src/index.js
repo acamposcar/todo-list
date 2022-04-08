@@ -5,9 +5,8 @@ import { updateTaskList, updateProjectList, changeActiveProject } from './dom/do
 import { taskModal, projectModal } from './dom/modal';
 import { readLocalStorage, saveLocalStorage } from './logic/localStorage';
 
-readLocalStorage(app);
+readLocalStorage();
 app.addInbox();
-console.log(app);
 function getCurrentProject() {
   const currentProjectName = document.querySelector('#add-task').dataset.project;
   const [currentProject] = app.projects.filter((project) => project.name === currentProjectName);
@@ -25,7 +24,7 @@ document.querySelector('#add-task-popup').addEventListener('submit', (event) => 
     if (!task) return;
     currentProject.addTask(task);
   }
-  saveLocalStorage(app);
+  saveLocalStorage();
   taskModal.clearAndHide(event.target);
   updateTaskList(currentProject);
 });
@@ -43,7 +42,7 @@ document.querySelector('#add-project-popup').addEventListener('submit', (event) 
   event.preventDefault();
   const project = createNewProject(event.target);
   app.addProject(project);
-  saveLocalStorage(app);
+  saveLocalStorage();
   projectModal.clearAndHide(event.target);
   updateProjectList();
 });

@@ -28,7 +28,7 @@ function appendTaskElement(task, container, project) {
   });
   element.querySelector('.delete-task').addEventListener('click', () => {
     project.deleteTask(task);
-    saveLocalStorage(app);
+    saveLocalStorage();
     element.remove();
   });
 }
@@ -72,7 +72,6 @@ function updateTaskList(project) {
 function updateProjectTitle(project) {
   const container = document.querySelector('[data-project-title]');
   // If the project is Inbox, do not show Delete icon
-  console.log(app);
   if (project === app.getInboxProject()) {
     container.innerHTML = (`
         <h1>${project.name}</h1>`);
