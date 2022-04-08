@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { createNewTask, editTask } from './logic/task';
 import { app, createNewProject } from './logic/project';
-import { updateTaskList, updateProjectList } from './dom/dom';
+import { updateTaskList, updateProjectList, changeActiveProject } from './dom/dom';
 import { taskModal, projectModal } from './dom/modal';
 import { readLocalStorage, saveLocalStorage } from './logic/localStorage';
 
@@ -54,6 +54,7 @@ document.querySelector('#add-project-cancel').addEventListener('click', () => {
 });
 
 document.querySelector('[data-inbox]').addEventListener('click', () => {
+  changeActiveProject(document.querySelector('[data-inbox]'));
   updateTaskList(app.getInboxProject());
 });
 

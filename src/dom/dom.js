@@ -92,6 +92,12 @@ function updateProjectTitle(project) {
     });
   }
 }
+function changeActiveProject(activeProjectElement) {
+  document.querySelectorAll('.nav-item').forEach((element) => {
+    element.classList.remove('active');
+  });
+  activeProjectElement.classList.add('active');
+}
 
 function appendProjectElement(project, container) {
   const projectElement = document.createElement('li');
@@ -107,10 +113,11 @@ function appendProjectElement(project, container) {
       </div>`);
   projectElement.addEventListener('click', () => {
     updateTaskList(project);
+    changeActiveProject(projectElement);
   });
   container.appendChild(projectElement);
 }
 
 export {
-  updateTaskList, appendProjectElement, updateProjectList,
+  updateTaskList, appendProjectElement, updateProjectList, changeActiveProject,
 };
