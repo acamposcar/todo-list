@@ -12,5 +12,6 @@ module.exports = {
   },
   ignorePatterns: ['./bundle.js'],
   rules: {
+    'no-param-reassign': [2, { props: false }],
   },
 };
