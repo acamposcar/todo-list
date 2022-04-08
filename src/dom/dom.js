@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { taskModal } from './modal';
 import app from '../logic/appData';
-import { saveLocalStorage } from '../logic/localStorage';
+import storage from '../logic/localStorage';
 
 function appendTaskElement(task, container, project) {
   const element = document.createElement('div');
@@ -28,7 +28,7 @@ function appendTaskElement(task, container, project) {
   });
   element.querySelector('.delete-task').addEventListener('click', () => {
     project.deleteTask(task);
-    saveLocalStorage();
+    storage.save();
     element.remove();
   });
 }
@@ -85,7 +85,7 @@ function updateProjectTitle(project) {
         </div>`);
     container.querySelector('.icon').addEventListener('click', () => {
       app.deleteProject(project);
-      saveLocalStorage();
+      storage.save();
       updateProjectList();
       const inboxProject = app.getProjectByName('Inbox');
       updateTaskList(inboxProject);

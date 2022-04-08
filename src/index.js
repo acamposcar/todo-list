@@ -3,10 +3,10 @@ import { saveTask } from './logic/task';
 import { saveProject } from './logic/project';
 import { updateTaskList, updateProjectList, changeActiveProject } from './dom/dom';
 import { taskModal, projectModal } from './dom/modal';
-import { readLocalStorage, saveLocalStorage } from './logic/localStorage';
+import storage from './logic/localStorage';
 import app from './logic/appData';
 
-readLocalStorage();
+storage.read();
 app.addInbox();
 function getCurrentProject() {
   const currentProjectName = document.querySelector('#add-task').dataset.project;
@@ -25,7 +25,7 @@ document.querySelector('#add-task-popup').addEventListener('submit', (event) => 
     if (!task) return;
     currentProject.addTask(task);
   }
-  saveLocalStorage();
+  storage.save();
   taskModal.clearAndHide(event.target);
   updateTaskList(currentProject);
 });
@@ -43,7 +43,7 @@ document.querySelector('#add-project-popup').addEventListener('submit', (event) 
   event.preventDefault();
   const project = saveProject(event.target);
   app.addProject(project);
-  saveLocalStorage();
+  storage.save();
   projectModal.clearAndHide(event.target);
   updateProjectList();
 });
