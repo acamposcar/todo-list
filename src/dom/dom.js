@@ -3,6 +3,19 @@ import { taskModal } from './modal';
 import app from '../logic/appData';
 import storage from '../logic/localStorage';
 
+function removeFadeOut(element, speed) {
+  /**
+    *  Remove element with transition
+    */
+  const seconds = speed / 1000;
+  element.style.transition = `opacity ${seconds}s ease`;
+
+  element.style.opacity = 0;
+  setTimeout(() => {
+    element.remove();
+  }, speed);
+}
+
 function appendTaskElement(task, container, project) {
   const element = document.createElement('div');
   element.classList.add('task');
@@ -29,7 +42,7 @@ function appendTaskElement(task, container, project) {
   element.querySelector('.delete-task').addEventListener('click', () => {
     project.deleteTask(task);
     storage.save();
-    element.remove();
+    removeFadeOut(element, 500);
   });
 }
 
