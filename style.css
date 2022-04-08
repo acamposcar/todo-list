@@ -116,16 +116,12 @@ body{
 .nav-item{
     cursor: pointer;
 }
-.nav-item.active, .nav-item.active .material-icons{
-    color:white;
+.nav-item.active{
+    border-right: solid 10px var(--primary);;
 }
 
 .nav-item:hover{
     background-color: var(--primary);
-}
-
-.nav-item:active{
-    background-color: var(--primary-active);
 }
 
 .nav-item .material-icons{
