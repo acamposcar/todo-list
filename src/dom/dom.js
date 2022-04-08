@@ -85,6 +85,7 @@ function updateProjectTitle(project) {
         </div>`);
     container.querySelector('.icon').addEventListener('click', () => {
       app.deleteProject(project);
+      saveLocalStorage();
       updateProjectList();
       const inboxProject = app.getProjectByName('Inbox');
       updateTaskList(inboxProject);
