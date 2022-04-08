@@ -3,19 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import app from './appData';
 
 class Task {
-  constructor(title, description) {
+  constructor(title, description, priority) {
     this.title = title;
     this.description = description;
     this.dueDate = undefined;
-    this.priority = undefined;
+    this.priority = priority;
     this.completed = false;
     this.id = uuidv4();
   }
-
-  addPriority = (priority) => {
-    const priorityText = { low: 'low', medium: 'medium', high: 'high' };
-    this.priority = priorityText[priority];
-  };
 
   addDueDate = (date) => {
     const parseDate = new Date(date);
@@ -31,8 +26,8 @@ class Task {
     this.title = savedTask.title;
     this.description = savedTask.description;
     this.completed = savedTask.completed;
+    this.priority = savedTask.priority;
     this.addDueDate(savedTask.dueDate);
-    this.addPriority(savedTask.priority);
   };
 }
 
@@ -55,6 +50,7 @@ function saveTask(target, taskID, project) {
   }
   task.description = target['add-task-description'].value;
   task.addDueDate(target['add-task-date'].value);
+
   task.priority = undefined;
   target.querySelectorAll('input[type="radio"]').forEach((radio) => {
     if (radio.checked) task.priority = radio.value;
