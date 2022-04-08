@@ -22,6 +22,10 @@ function appendTaskElement(task, container, project) {
     task.toggleCompleted();
     element.classList.toggle('completed');
   });
+  element.querySelector('.title').addEventListener('click', () => {
+    taskModal.populateModal(task);
+    taskModal.show();
+  });
   element.querySelector('.delete-task').addEventListener('click', () => {
     project.deleteTask(task);
     saveLocalStorage(app);
@@ -45,14 +49,48 @@ function appendNewTaskElement(project, container) {
   });
 }
 
+function updateProjectList() {
+  const projectsContainer = document.querySelector('#projects-list');
+
+  projectsContainer.innerHTML = '';
+  app.projects.forEach((project) => {
+    if (project === app.getInboxProject()) return;
+    appendProjectElement(project, projectsContainer);
+  });
+}
+
 function updateTaskList(project) {
-  document.querySelector('[data-project-title]').textContent = project.name;
+  updateProjectTitle(project);
   const tasksContainer = document.querySelector('#tasks-list');
   tasksContainer.innerHTML = '';
   project.tasks.forEach((task) => {
     appendTaskElement(task, tasksContainer, project);
   });
   appendNewTaskElement(project, tasksContainer);
+}
+
+function updateProjectTitle(project) {
+  const container = document.querySelector('[data-project-title]');
+  // If the project is Inbox, do not show Delete icon
+  console.log(app);
+  if (project === app.getInboxProject()) {
+    container.innerHTML = (`
+        <h1>${project.name}</h1>`);
+  } else {
+    container.innerHTML = (`
+        <h1>${project.name}</h1>
+        <div class="icon delete-project">
+          <span class="material-icons-outlined">
+              delete
+          </span>
+        </div>`);
+    container.querySelector('.icon').addEventListener('click', () => {
+      app.deleteProject(project);
+      updateProjectList();
+      const inboxProject = app.getProjectByName('Inbox');
+      updateTaskList(inboxProject);
+    });
+  }
 }
 
 function appendProjectElement(project, container) {
@@ -74,5 +112,5 @@ function appendProjectElement(project, container) {
 }
 
 export {
-  updateTaskList, appendProjectElement,
+  updateTaskList, appendProjectElement, updateProjectList,
 };

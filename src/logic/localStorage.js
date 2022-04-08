@@ -1,5 +1,30 @@
 import { Task } from './task';
-import { Project } from './project';
+import { app, Project } from './project';
+
+const projectExample = () => {
+  app.addInbox();
+  const work = new Project('Work');
+  const personal = new Project('Personal');
+  const inbox = app.getInboxProject();
+  let task;
+
+  app.addProject(work);
+
+  task = new Task('Buy groceries');
+  task.addDueDate(new Date());
+  task.priority = 'medium';
+  personal.addTask(task);
+  app.addProject(personal);
+
+  task = new Task('Learn React');
+  task.addDueDate(new Date());
+  task.priority = 'high';
+  inbox.addTask(task);
+  task = new Task('Study algorithms');
+  task.addDueDate(new Date());
+  task.priority = 'medium';
+  inbox.addTask(task);
+};
 
 const recreateProjectsFromStorage = (app, savedProjects) => {
   /*
@@ -21,14 +46,17 @@ const readLocalStorage = (app) => {
   /*
   *  Read data stored in local storage
   */
-  if (!localStorage.getItem('app')) return;
-  try {
-    const savedProjects = JSON.parse(localStorage.getItem('app'));
-    recreateProjectsFromStorage(app, savedProjects);
-  } catch (error) {
+  app.clearAllProjects();
+  if (localStorage.getItem('app')) {
+    try {
+      const savedProjects = JSON.parse(localStorage.getItem('app'));
+      recreateProjectsFromStorage(app, savedProjects);
+    } catch (error) {
     // If there is any error, start with an empty TODO
-    // app.clearAllProjects();
-    console.log(error);
+      app.clearAllProjects();
+    }
+  } else {
+    projectExample();
   }
 };
 
